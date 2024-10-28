@@ -6,12 +6,12 @@ on:
         description: source directory for build
         required: false 
         type: string
-        default: ./
+        default: .
       build_destination:
         description: destination directory for build
         required: false 
         type: string
-        default: ./_site
+        default: _site
       builder:
         description: type of builder
         required: false 
