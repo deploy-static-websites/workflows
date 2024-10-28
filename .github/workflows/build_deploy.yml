@@ -35,9 +35,10 @@ jobs:
           ls -al ${{ github.workspace }}/${{inputs.build_source}}
       - name: checkout file
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            "."
+        # sparse checkout below doesn't work, it doesn't checkout level1 directory, bug?
+        # with:
+        #  sparse-checkout: |
+        #    ${{inputs.build_source}}
         # cone mode false means will checkout only the file/files mentioned in the path
         # default is true which checks out repository root level files unnecessarily for our case
         #  sparse-checkout-cone-mode: false  
