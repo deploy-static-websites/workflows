@@ -54,6 +54,10 @@ jobs:
           path: ${{inputs.build_destination}}
   deploy:
     if: inputs.deploy_to == 'gh-pages'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{steps.deployment.outputs.page_url}}
