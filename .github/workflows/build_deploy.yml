@@ -6,7 +6,7 @@ on:
         description: source directory for build
         required: false 
         type: string
-        default: .
+        default: ./
       build_destination:
         description: destination directory for build
         required: false 
@@ -37,8 +37,9 @@ jobs:
           sparse-checkout-cone-mode: false   
       - name: test inputs
         run: |
-          echo ${{ github.workspace }}/${{inputs.build_source}}
-          echo ${{ github.workspace }}/${{inputs.build_destination}}
+          ls -al ${{ github.workspace }}
+          ls -al ${{ github.workspace }}/${{inputs.build_source}}
+          ls -al ${{ github.workspace }}/${{inputs.build_destination}}
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
@@ -46,8 +47,10 @@ jobs:
         if: inputs.builder == 'jekyll' 
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ${{ github.workspace }}/${{inputs.build_source}}
-          destination: ${{ github.workspace }}/${{inputs.build_destination}}
+          source: "./"
+          # ${{ github.workspace }}/${{inputs.build_source}}
+          destination: "./_site"
+          # "${{ github.workspace }}/${{inputs.build_destination}}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
