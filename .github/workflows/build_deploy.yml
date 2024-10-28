@@ -6,7 +6,7 @@ on:
         description: source directory for build
         required: false 
         type: string
-        default: .
+        default: ''
       build_destination:
         description: destination directory for build
         required: false 
