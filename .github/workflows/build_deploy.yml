@@ -40,7 +40,7 @@ jobs:
       - name: checkout file
         uses: actions/checkout@v4
         # sparse checkout below doesn't work, it doesn't checkout level1 directory, bug?
-        if: sparse_checkout
+        if: inputs.sparse_checkout
         with:
           sparse-checkout: |
             ${{inputs.build_source}}
