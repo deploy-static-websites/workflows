@@ -32,7 +32,6 @@ jobs:
       - name: list contents before repo checkout
         run: |
           ls -al ${{ github.workspace }}
-          ls -al ${{ github.workspace }}/${{inputs.build_source}}
       - name: checkout file
         uses: actions/checkout@v4
         # sparse checkout below doesn't work, it doesn't checkout level1 directory, bug?
