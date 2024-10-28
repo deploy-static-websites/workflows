@@ -21,7 +21,7 @@ on:
         description: site host type
         required: false 
         type: string
-        default: gh_pages
+        default: gh-pages
 jobs:
   # Build job
   build:
