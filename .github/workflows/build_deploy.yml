@@ -16,7 +16,7 @@ on:
         description: action/checkout only selected directory
         required: false 
         type: string
-        default: ''
+        default: true 
       builder:
         description: type of builder
         required: false 
@@ -40,9 +40,10 @@ jobs:
       - name: checkout file
         uses: actions/checkout@v4
         # sparse checkout below doesn't work, it doesn't checkout level1 directory, bug?
+        if: sparse_checkout
         with:
           sparse-checkout: |
-            ${{inputs.sparse_checkout}}
+            ${{inputs.build_source}}
         # cone mode false means will checkout only the file/files mentioned in the path
         # default is true which checks out repository root level files unnecessarily for our case
           sparse-checkout-cone-mode: false  
