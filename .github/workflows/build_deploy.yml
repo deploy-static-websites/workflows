@@ -11,7 +11,7 @@ on:
         description: destination directory for build
         required: false 
         type: string
-        default: _site
+        default: ./_site
       builder:
         description: type of builder
         required: false 
@@ -46,14 +46,12 @@ jobs:
         if: inputs.builder == 'jekyll' 
         uses: actions/jekyll-build-pages@v1
         with:
-          source: "./"
-          # ${{ github.workspace }}/${{inputs.build_source}}
-          destination: "./_site"
-          # "${{ github.workspace }}/${{inputs.build_destination}}
+          source: ${{inputs.build_source}}
+          destination: ${{inputs.build_destination}}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: ${{inputs.build_destination}}
   deploy:
     if: inputs.deploy_to == 'gh-pages'
     environment:
