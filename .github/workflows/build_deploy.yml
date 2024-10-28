@@ -34,7 +34,7 @@ jobs:
             ${{inputs.build_source}}
         # cone mode false means will checkout only the file/files mentioned in the path
         # default is true which checks out repository root level files unnecessarily for our case
-          sparse-checkout-cone-mode: false   
+          sparse-checkout-cone-mode: true  
       - name: test inputs
         run: |
           ls -al ${{ github.workspace }}
