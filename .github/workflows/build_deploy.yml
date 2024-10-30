@@ -21,11 +21,6 @@ on:
         description: languages used to build code
         required: true 
         type: string
-      build_url:
-        description: url of the site
-        required: false 
-        type: string
-        default: 'https://profile-sh.github.io'
       deploy_to:
         description: site host type
         required: false 
@@ -60,7 +55,6 @@ jobs:
         with:
           build_source: ${{inputs.build_source}}
           build_destination: ${{inputs.build_destination}}
-          build_url: ${{inputs.build_url}}
       - name: Purge unused CSS 
         run: |
           npm install -g purgecss
