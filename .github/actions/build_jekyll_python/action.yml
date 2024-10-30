@@ -1,0 +1,28 @@
+name: ${{github.action}}
+description: axtion to build jekyll blog with python requirements
+inputs:
+  build_source:
+    description: source directory for build
+    required: true 
+    type: string
+  build_destination:
+    description: destination directory for build
+    required: true 
+    type: string
+  build_url:
+    description: url of the site
+    required: true 
+    type: string     
+runs:
+  using: "composite"
+  steps:
+    - name: run a script
+      shell: bash
+      run: |
+        pip3 install -r requirements.txt 
+        export JEKYLL_ENV=production
+        bundle exec jekyll build/
+        --source ${{inputs.build_source}}/
+        --destination ${{inputs.build_destination}}/
+        --url ${{inputs.build_url}}/
+        echo action done
