@@ -21,7 +21,7 @@ on:
         description: type of builder
         required: false 
         type: string
-        default: ''
+        default: 'jekyll'
       deploy_to:
         description: site host type
         required: false 
@@ -30,7 +30,6 @@ on:
 jobs:
   # Build job
   build:
-    if: ${{inputs.builder!=''}}
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -67,6 +66,7 @@ jobs:
           path: ${{inputs.build_destination}}
   deploy:
     if: inputs.deploy_to == 'gh-pages'
+    needs: build
     permissions:
       contents: read
       pages: write
