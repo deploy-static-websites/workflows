@@ -8,11 +8,7 @@ inputs:
   build_destination:
     description: destination directory for build
     required: true 
-    type: string
-  build_url:
-    description: url of the site
-    required: true 
-    type: string     
+    type: string 
 runs:
   using: "composite"
   steps:
@@ -23,6 +19,5 @@ runs:
         export JEKYLL_ENV=production
         bundle exec jekyll build \
         --source ${{inputs.build_source}} \
-        --destination ${{inputs.build_destination}} \
-        --url ${{inputs.build_url}}
+        --destination ${{inputs.build_destination}}
         echo action done
