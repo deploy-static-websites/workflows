@@ -30,6 +30,7 @@ on:
 jobs:
   # Build job
   build:
+    if: ${{inputs.build_source!=''}}
     permissions:
       contents: read
     runs-on: ubuntu-latest
