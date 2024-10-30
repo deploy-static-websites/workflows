@@ -21,8 +21,8 @@ runs:
       run: |
         pip3 install -r requirements.txt 
         export JEKYLL_ENV=production
-        bundle exec jekyll build/
-        --source ${{inputs.build_source}}/
-        --destination ${{inputs.build_destination}}/
-        --url ${{inputs.build_url}}/
+        bundle exec jekyll build \
+        --source ${{inputs.build_source}} \
+        --destination ${{inputs.build_destination}} \
+        --url ${{inputs.build_url}}
         echo action done
