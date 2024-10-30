@@ -30,16 +30,11 @@ on:
 jobs:
   # Build job
   build:
+    if: ${{inputs.builder!=''}}
     permissions:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      - name: exit job if no builder
-        run: |
-          if [ ${{inputs.builder==''}} ]; then
-          echo "No builder found, exiting job.";
-          exit 1;
-          fi;
       - name: list contents before repo checkout
         run: |
           ls -al ${{ github.workspace }}
@@ -80,7 +75,7 @@ jobs:
       name: github-pages
       url: ${{steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
-    needs: build
+    needs: ''
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
