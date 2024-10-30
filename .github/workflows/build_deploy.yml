@@ -1,0 +1,84 @@
+name: build and deploy jobs
+on:
+  workflow_call:
+    inputs:
+      build_source:
+        description: source directory for build
+        required: false 
+        type: string
+        default: ''
+      build_destination:
+        description: destination directory for build
+        required: false 
+        type: string
+        default: _site
+      sparse_checkout:
+        description: action/checkout only selected directory
+        required: false 
+        type: string
+        default: true 
+      build_languages:
+        description: languages used to build code
+        required: true 
+        type: string
+      build_url:
+        description: url of the site
+        required: false 
+        type: string
+        default: 'https://profile-sh.github.io'
+      deploy_to:
+        description: site host type
+        required: false 
+        type: string
+        default: 'gh-pages'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
+      - name: Setup Ruby 
+        if: contains(${{inputs.build_languages}},'ruby')
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true 
+      - name: Setup Python
+        if: contains(${{inputs.build_languages}},'python')
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+          
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: install and Build 
+        uses: deploy-static-websites/workflows/.github/actions/build_jekyll_python@main
+        with:
+          build_source: ${{inputs.build_source}}
+          build_destination: ${{inputs.build_destination}}
+          build_url: ${{inputs.build_url}}
+      - name: Purge unused CSS 
+        run: |
+          npm install -g purgecss
+          purgecss -c purgecss.config.js
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{inputs.build_destination}}
+  deploy_gh_pages:
+    if: ${{inputs.deploy_to}}=='gh-pages'
+    needs: build
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
