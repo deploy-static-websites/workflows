@@ -10,6 +10,8 @@ on:
         description: possible values 'cancel' or 'force-cancel'
         required: true 
         type: string
+env:
+    GH_TOKEN: ${{ github.token }}        
 jobs:
   try_run_cancel:
     runs-on: ubuntu-latest
