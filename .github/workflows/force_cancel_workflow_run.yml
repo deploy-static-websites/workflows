@@ -16,6 +16,9 @@ jobs:
   try_run_cancel:
     runs-on: ubuntu-latest
     steps:
+      - name: show context
+        run: |
+          echo "${{github.repository}}/actions/runs/RUN_ID/${{inputs.cancel_type}}"
       - name: gh cli command to cancel the run
         run: |
           gh api \
