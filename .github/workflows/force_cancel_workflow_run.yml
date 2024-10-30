@@ -1,0 +1,24 @@
+name: force cancel a workflow run with a run id using gh cli. the subject run belongs to repo of the caller workflow
+on:
+  workflow_call:
+    inputs:
+      run_id:
+        description: id of the run to cancel
+        required: true 
+        type: string
+      cancel_type:
+        description: possible values 'cancel' or 'force-cancel'
+        required: true 
+        type: string
+jobs:
+  try_run_cancel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: gh cli command to cancel the run
+        run: |
+          gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/${{github.repository}}/actions/runs/RUN_ID/${{inputs.cancel_type}}
+  
