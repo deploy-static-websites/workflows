@@ -32,8 +32,15 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: checkout file
         uses: actions/checkout@v4
+        if: inputs.sparse_checkout
+        with:
+          sparse-checkout: |
+            ${{inputs.build_source}}
+        # cone mode false means will checkout only the file/files mentioned in the path
+        # default is true which checks out repository root level files unnecessarily for our case
+          sparse-checkout-cone-mode: false  
       - name: Setup Ruby 
         if: contains(${{inputs.build_languages}},'ruby')
         uses: ruby/setup-ruby@v1
