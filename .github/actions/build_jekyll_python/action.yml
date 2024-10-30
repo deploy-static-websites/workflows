@@ -1,4 +1,4 @@
-name: ${{github.action}}
+name: build_jekyll_python
 description: axtion to build jekyll blog with python requirements
 inputs:
   build_source:
