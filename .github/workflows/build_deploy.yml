@@ -21,7 +21,7 @@ on:
         description: type of builder
         required: false 
         type: string
-        default: jekyll
+        default: ''
       deploy_to:
         description: site host type
         required: false 
