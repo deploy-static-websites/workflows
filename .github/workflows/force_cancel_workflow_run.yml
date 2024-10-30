@@ -18,12 +18,12 @@ jobs:
     steps:
       - name: show context
         run: |
-          echo "${{github.repository}}/actions/runs/RUN_ID/${{inputs.cancel_type}}"
+          echo "${{github.repository}}/actions/runs/${{inputs.run_id}}/${{inputs.cancel_type}}"
       - name: gh cli command to cancel the run
         run: |
           gh api \
           --method POST \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/${{github.repository}}/actions/runs/RUN_ID/${{inputs.cancel_type}}
+          /repos/${{github.repository}}/actions/runs/${{inputs.run_id}}/${{inputs.cancel_type}}
   
