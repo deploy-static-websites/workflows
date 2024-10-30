@@ -36,10 +36,9 @@ jobs:
     steps:
       - name: exit job if no builder
         run: |
-          if: ${{inputs.builder!=''}}; then
+          if: ${{inputs.builder==''}}
           echo "No builder found, exiting job."
           exit 1
-          fi
       - name: list contents before repo checkout
         run: |
           ls -al ${{ github.workspace }}
